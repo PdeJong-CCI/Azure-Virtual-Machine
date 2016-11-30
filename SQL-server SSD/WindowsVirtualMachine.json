@@ -619,7 +619,7 @@
                             },
                             "AutoPatchingSettings": {
                                 "PatchCategory": "WindowsMandatoryUpdates",
-                                "Enable": true,
+                                "Enable": false,
                                 "DayOfWeek": "[parameters('sqlAutopatchingDayOfWeek')]",
                                 "MaintenanceWindowStartingHour": "[parameters('sqlAutopatchingStartHour')]",
                                 "MaintenanceWindowDuration": "[parameters('sqlAutopatchingWindowDuration')]"
