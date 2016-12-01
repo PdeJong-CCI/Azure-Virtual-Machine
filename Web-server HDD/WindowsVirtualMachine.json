@@ -38,6 +38,15 @@
                 "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version. Allowed values: 2012-R2-Datacenter."
             }
         },
+        "customerName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "metadata": {
+                "description": "Name of the customer. Choose shared if the server is not dedicated for a specific customer. Syntax: [shared] | [name of customer, lowercase]."
+            },
+            "defaultValue": "[shared] | [name of customer, lowercase]"
+        },
         "adminUsername": {
             "type": "string",
             "minLength": 8,
@@ -289,7 +298,10 @@
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
             "tags": {
-                "displayName": "StorageAccount"
+                "displayName": "StorageAccount",
+                "role": "web",
+                "billing": "nl",
+                "customer": "[parameters('customerName')]"
             },
             "properties": {
                 "accountType": "[variables('vhdStandardStorageType')]"
@@ -301,7 +313,10 @@
             "name": "[parameters('publicIpAddressName')]",
             "location": "[resourceGroup().location]",
             "tags": {
-                "displayName": "PublicIPAddress"
+                "displayName": "PublicIPAddress",
+                "role": "web",
+                "billing": "nl",
+                "customer": "[parameters('customerName')]"
             },
             "properties": {
                 "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
@@ -316,7 +331,10 @@
             "name": "[parameters('networkInterfaceName')]",
             "location": "[resourceGroup().location]",
             "tags": {
-                "displayName": "NetworkInterface"
+                "displayName": "NetworkInterface",
+                "role": "web",
+                "billing": "nl",
+                "customer": "[parameters('customerName')]"
             },
             "dependsOn": [
                 "[concat('Microsoft.Network/publicIPAddresses/', parameters('publicIPAddressName'))]"
@@ -344,7 +362,10 @@
             "name": "[parameters('virtualMachineName')]",
             "location": "[resourceGroup().location]",
             "tags": {
-                "displayName": "VirtualMachine"
+                "displayName": "VirtualMachine",
+                "role": "web",
+                "billing": "nl",
+                "customer": "[parameters('customerName')]"
             },
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', parameters('vhdStandardStorageAccountName'))]",
@@ -397,7 +418,10 @@
                     "apiVersion": "2015-06-15",
                     "location": "[resourceGroup().location]",
                     "tags": {
-                        "displayName": "AzureDiagnostics"
+                        "displayName": "AzureDiagnostics",
+                        "role": "web",
+                        "billing": "nl",
+                        "customer": "[parameters('customerName')]"
                     },
                     "dependsOn": [
                         "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
@@ -424,7 +448,10 @@
                     "apiVersion": "2015-06-15",
                     "location": "[resourceGroup().location]",
                     "tags": {
-                        "displayName": "AzureMonitoring"
+                        "displayName": "AzureMonitoring",
+                        "role": "web",
+                        "billing": "nl",
+                        "customer": "[parameters('customerName')]"
                     },
                     "dependsOn": [
                         "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
@@ -448,7 +475,10 @@
                     "apiVersion": "2015-05-01-preview",
                     "location": "[resourceGroup().location]",
                     "tags": {
-                        "displayName": "Antimalware"
+                        "displayName": "Antimalware",
+                        "role": "web",
+                        "billing": "nl",
+                        "customer": "[parameters('customerName')]"
                     },
                     "dependsOn": [
                         "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
@@ -468,8 +498,8 @@
                             "ScheduledScanSettings": {
                                 "isEnabled": "true",
                                 "scanType": "Quick",
-                                "day": "7", //0 is daily, 1 is Sunday, 2 is Monday, 7 is Saturday, and 8 is disabled.
-                                "time": "120" //The value ranges from 0 to 1440 representing the minute of the day. The default is 120, which is 2 AM.
+                                "day": "7",
+                                "time": "120"
                             }
                         },
                         "protectedSettings": null
