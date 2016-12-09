@@ -14,19 +14,18 @@
         "virtualMachineSize": {
             "type": "string",
             "allowedValues": [
-                "Standard_A0",
-                "Standard_A1",
-                "Standard_A2",
-                "Standard_A3",
-                "Standard_A4",
-                "Standard_A5",
-                "Standard_A6",
-                "Standard_A7"
+                "Standard_A1_v2",
+                "Standard_A2_v2",
+                "Standard_A4_v2",
+                "Standard_A8_v2",
+                "Standard_A2m_v2",
+                "Standard_A2m_v2",
+                "Standard_A8m_v2"
             ],
             "metadata": {
-                "description": "The size for the Web Server Virtual Machine. For more info see: https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-sizes/#a-series"
+                "description": "The size for the Web Server Virtual Machine. For more info see: https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-sizes/#av2-series"
             },
-            "defaultValue": "Standard_A2"
+            "defaultValue": "Standard_A2_v2"
         },
         "windowsOSVersion": {
             "type": "string",
